@@ -10,14 +10,15 @@ Vue.config.productionTip = false
 
 axios.defaults.baseURL = 'http://127.0.0.1:8888/api/private/v1/'
 
-// 获取token
-const token = window.sessionStorage.getItem('token')
 // 请求拦截器
 axios.interceptors.request.use(config => {
-  config.headers.Authorization = token
+  // 统一添加请求头  token
+  config.headers.Authorization = window.localStorage.getItem('myToken')
   return config
 })
-// 响应拦截器
+
+
+// 响应拦截器，响应体解构
 axios.interceptors.response.use(res => res.data)
 
 Vue.prototype.$axios = axios
